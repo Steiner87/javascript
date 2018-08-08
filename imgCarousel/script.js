@@ -25,12 +25,7 @@ preview.onclick = function() {
 
 function move(x) {
     translate += x;
-    if (translate < -600) {
-
-        translate = 0;
-    }
-    if (translate > 0) {
-
+    if (translate < -600 || translate > 0) {
         translate = 0;
     }
 
