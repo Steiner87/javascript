@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <title>Customer Page</title>
+
+    <script>
+        $(function() {
+            $("#firstDate").datepicker();
+            $("#nextDate").datepicker();
+        });
+    </script>
+</head>
+
+<body>
+    <form action="" method="POST" id="myForm">
+        <div class="row">
+            <div><label for="">First Name</label></div>
+            <input type="text" name="firstName" value="">
+            <div><label for="">Last Name</label></div>
+            <input type="text" name="lastName" value="">
+        </div>
+
+        <div class="row">
+            <label for=""><input type="radio" name="card" id="masterCard" value="masterCard">MasterCard</label>
+
+            <label for=""><input type="radio" name="card" id="visa"value="visa">Visa</label>
+
+        </div>
+        <div class="row">
+            <div><label for="">First baying Date</label></div>
+            <input type="text" id="firstDate">
+            <div><label for="">Next baying Date</label></div>
+            <input type="text" id="nextDate">
+            <div><label for="">Discount</label></div>
+            <input type="text" name="discount" id="disc" value="">
+        </div>
+        <input type="submit" value="Submit">
+
+    </form>
+    <script>
+        let form = document.getElementById("myForm");
+
+        function obj(fn, ln) {
+            console.log(this[fn]);
+            console.log(this[ln]);
+        }
+        form.onsubmit = function(event) {
+            event.preventDefault();
+            let firstName = document.querySelector(".row [name='firstName']");
+            let lastName = document.querySelector(".row [name='lastName']");
+            let firstDate = document.getElementById("firstDate");
+            let nextDate = document.getElementById("nextDate");
+            let masterCard = document.getElementById("masterCard");
+            let visa = document.getElementById("visa");
+            let disc = document.getElementById("disc");
+
+            let name = {
+                "firstName": firstName.value,
+                "lastName": lastName.value
+            };
+            obj.call(name, "firstName", "lastName");
+            user1.calc();
+
+
+            let mainObj = {
+                firstName: firstName.value,
+                lastName: lastName.value,
+                firstDate: firstDate.value,
+                nextDate: nextDate.value,
+                discaunt: calc(),
+                card: cardCheck()
+            };
+            disc.value = mainObj.discaunt + "%";
+
+            function cardCheck() {
+                if (masterCard.checked == true || visa.checked == true) {
+                    return this.card ? masterCard.value : visa.value;
+                } else {
+                    return this.card = "Не выбрана";
+                }
+            }
+
+            console.log(user1.discaunt);
+
+            //convert JSON mainObj into a string
+            var dehydratedMainObj = JSON.stringify(mainObj);
+
+            //save it with local storage
+            window.localStorage.setItem('mainObj', dehydratedMainObj);
+
+            //get 'animal' and rehydrate it  (convert it back JSON)
+            var rehydratedMainObj = JSON.parse(window.localStorage.getItem('mainObj'));
+        };
+
+
+        let user = {
+            calc: calc,
+        };
+
+        function calc() {
+            if (firstDate.value) {
+                this.discaunt = 5;
+                console.log("Ваша скидка =" + this.discaunt + "%");
+                return this.discaunt = 5;
+
+            } else {
+                this.discaunt = 0;
+                console.log("Ваша скидка =" + this.discaunt + "%");
+                return this.discaunt = 0;
+            }
+        }
+        let user1 = user;
+    </script>
+</body>
+
+</html>
