@@ -21,31 +21,38 @@
 </head>
 
 <body>
-    <form action="" method="POST" id="myForm">
-        <div class="row">
-            <div><label for="">First Name</label></div>
-            <input type="text" name="firstName" value="">
-            <div><label for="">Last Name</label></div>
-            <input type="text" name="lastName" value="">
-        </div>
+    <div class="wrapper">
+        <form action="" method="POST" id="myForm">
+            <fieldset>
+                <legend>Customer form</legend>
+                <div class="row">
+                    <div><label for="">First Name</label></div>
+                    <input type="text" name="firstName" value="">
+                    <div><label for="">Last Name</label></div>
+                    <input type="text" name="lastName" value="">
+                </div>
 
-        <div class="row">
-            <label for=""><input type="radio" name="card" id="masterCard" value="masterCard">MasterCard</label>
+                <div class="row">
+                    <label for=""><input type="radio" name="card" id="masterCard" value="masterCard">MasterCard</label>
 
-            <label for=""><input type="radio" name="card" id="visa"value="visa">Visa</label>
+                    <label for=""><input type="radio" name="card" id="visa"value="visa">Visa</label>
 
-        </div>
-        <div class="row">
-            <div><label for="">First baying Date</label></div>
-            <input type="text" id="firstDate">
-            <div><label for="">Next baying Date</label></div>
-            <input type="text" id="nextDate">
-            <div><label for="">Discount</label></div>
-            <input type="text" name="discount" id="disc" value="">
-        </div>
-        <input type="submit" value="Submit">
+                </div>
+                <div class="row">
+                    <div><label for="">First baying Date</label></div>
+                    <input type="text" id="firstDate">
+                    <div><label for="">Next baying Date</label></div>
+                    <input type="text" id="nextDate">
+                    <div><label for="">Discount</label></div>
+                    <input type="text" name="discount" id="disc" value="">
+                </div>
+                <input type="submit" value="Submit">
 
-    </form>
+        </form>
+        </fieldset>
+
+    </div>
+
     <script>
         let form = document.getElementById("myForm");
 
@@ -81,8 +88,12 @@
             };
             disc.value = mainObj.discaunt + "%";
 
+            for (const key in mainObj) {
+                console.log(mainObj[key]);
+            }
+
             function cardCheck() {
-                if (masterCard.checked == true || visa.checked == true) {
+                if (masterCard.checked || visa.checked) {
                     return this.card ? masterCard.value : visa.value;
                 } else {
                     return this.card = "Не выбрана";
@@ -92,13 +103,12 @@
             console.log(user1.discaunt);
 
             //convert JSON mainObj into a string
-            var dehydratedMainObj = JSON.stringify(mainObj);
+            var jsonText = JSON.stringify(mainObj);
 
             //save it with local storage
-            window.localStorage.setItem('mainObj', dehydratedMainObj);
+            window.localStorage.setItem('mainObj', jsonText);
 
-            //get 'animal' and rehydrate it  (convert it back JSON)
-            var rehydratedMainObj = JSON.parse(window.localStorage.getItem('mainObj'));
+            var jsObj = JSON.parse(window.localStorage.getItem('mainObj'));
         };
 
 
